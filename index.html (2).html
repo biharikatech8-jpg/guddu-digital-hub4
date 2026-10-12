@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guddu Digital Hub - Smart Tools Edition</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f5fa;color:#172033;line-height:1.6}
+header{background:#102b55;color:white;padding:30px 20px;text-align:center}
+header h1{margin:0 0 8px;font-size:2.2rem}
+nav{background:#174b91;padding:5px;text-align:center;position:sticky;top:0;z-index:1000;box-shadow:0 2px 5px rgba(0,0,0,0.2)}
+nav a{color:white;text-decoration:none;margin:5px 12px;font-weight:bold;display:inline-block;padding:8px}
+.container{max-width:1000px;margin:auto;padding:20px}
+.hero{background:linear-gradient(120deg,#1555a5,#11a8b5);color:white;padding:45px 20px;border-radius:14px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+button, .btn{background:#1264c5;color:white;border:0;padding:12px 20px;border-radius:7px;cursor:pointer;font-weight:bold;font-size:15px;text-decoration:none;display:inline-block;margin-top:10px}
+button:hover, .btn:hover{opacity:.9;transform:scale(1.01);transition:0.2s}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:15px}
+.card{background:white;padding:22px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid #e1e6ef;margin-top:25px}
+input,select,textarea{width:100%;padding:12px;margin:8px 0 16px;border:1px solid #ccd4e0;border-radius:6px;font-size:15px}
+h2{color:#174b91;border-bottom:2px solid #174b91;padding-bottom:8px;margin-top:30px}
+.tool-box{background:#f8f9fa;border:2px dashed #174b91;padding:20px;border-radius:10px;text-align:center;margin-top:15px}
+.hidden{display:none}
+.action-buttons{margin-top:15px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.whatsapp-btn{background:#25D366}
+.call-btn{background:#007bff}
+.qr-btn{background:#6f42c1}
+footer{text-align:center;padding:25px;background:#102b55;color:white;margin-top:40px}
+.small{font-size:13px;color:#657085}
+.enquiry-item{border-left:4px solid #1264c5;padding-left:10px;margin-bottom:15px;background:#f8f9fa;padding:15px;border-radius:4px}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:center;z-index:2000}
+.modal-content{background:white;padding:25px;border-radius:12px;text-align:center;max-width:90%;width:340px}
+.qr-img{width:200px;height:200px;margin:15px auto;display:block;border:1px solid #ccc;object-fit: contain}
+#previewCanvas{max-width:100%;margin-top:15px;border:1px solid #ccc;background:#fff;border-radius:6px}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Guddu Digital Hub</h1>
+  <p>आपकी डिजिटल सेवाएं और ऑटोमैटिक टूल्स, एक ही जगह</p>
+  <div class="action-buttons">
+     <a href="tel:+919999999999" class="btn call-btn">📞 कॉल करें</a>
+     <a href="https://wa.me" target="_blank" class="btn whatsapp-btn">💬 व्हाट्सएप करें</a>
+     <button onclick="openQRModal()" class="btn qr-btn">💸 Pay QR Code</button>
+  </div>
+</header>
+
+<nav>
+  <a href="#home">होम</a>
+  <a href="#tools">स्मार्ट टूल्स</a>
+  <a href="#services">सेवाएं</a>
+  <a href="#enquiry">Enquiry</a>
+  <a href="#admin">Admin</a>
+</nav>
+
+<main class="container">
+  <section id="home" class="hero">
+    <h2 style="color:white;border:0;margin:0 0 10px">Welcome to Guddu Digital Hub</h2>
+    <p style="font-size:18px">पासपोर्ट फोटो मेकर, क्रॉपिंग टूल्स और डिजिटल फॉर्म्स के लिए आपका अपना केंद्र।</p>
+    <a href="#tools"><button style="background:#102b55">लाइव टूल्स इस्तेमाल करें</button></a>
+  </section>
+
+  <!-- AKPRINTHUB STYLE LIVE TOOLS SECTION -->
+  <section id="tools">
+    <h2>⚡ AkPrintHub स्टाइल स्मार्ट टूल्स (Free & Instant)</h2>
+    
+    <div class="grid">
+      <!-- Tool 1: Passport Photo Maker -->
+      <div class="card" style="margin-top:0">
+        <h3>📸 1-Click Passport Photo Maker</h3>
+        <p class="small">फोटो अपलोड करें, यह उसे ऑटोमैटिकली पासपोर्ट साइज ब्राइटनेस के साथ शीट पर सेट कर देगा।</p>
+        <div class="tool-box">
+          <input type="file" id="passportInput" accept="image/*">
+          <label>कितनी फोटो प्रिंट करनी हैं?</label>
+          <select id="photoCount">
+            <option value="6">6 फोटो (A4 रो)</option>
+            <option value="12">12 फोटो</option>
+            <option value="32">32 फोटो (पूरी शीट)</option>
+          </select>
+          <button onclick="generatePassportPhotos()">पासपोर्ट शीट तैयार करें</button>
+        </div>
+      </div>
+
+      <!-- Tool 2: Document Auto Straightener & Contrast -->
+      <div class="card" style="margin-top:0">
+        <h3>📄 ID Card & A4 Document Edit Tool</h3>
+        <p class="small">आधार, पैन कार्ड या टेढ़े-मेढ़े दस्तावेजों को बिल्कुल सीधा करें और टेक्स्ट साफ करें।</p>
+        <div class="tool-box">
+          <input type="file" id="docInput" accept="image/*">
+          <label>एडिटिंग स्टाइल चुनें:</label>
+          <select id="docFilter">
+            <option value="high">हाई कंट्रास्ट (साफ टेक्स्ट)</option>
+            <option value="straight">आईडी कार्ड साइज क्रॉप</option>
+            <option value="none">सिर्फ सीधा और ब्राइट करें</option>
+          </select>
+          <button onclick="processDocument()">दस्तावेज सुधारे</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Preview Display Area -->
+    <div id="previewSection" class="card hidden text-center" style="text-align:center">
+      <h3>🔍 आपके टूल का आउटपुट (Live Preview)</h3>
+      <canvas id="previewCanvas"></canvas>
+      <br>
+      <button id="downloadBtn" style="background:#28a745;font-size:17px;padding:12px 25px">💾 रिजल्ट इमेज डाउनलोड करें</button>
+    </div>
+  </section>
+
+  <section id="services">
+    <h2>हमारी अन्य मुख्य सेवाएं</h2>
+    <div class="grid" id="serviceList"></div>
+  </section>
+
+  <section id="enquiry" class="card">
+    <h2>सेवा के लिए ऑनलाइन Enquiry करें</h2>
+    <form id="enquiryForm">
+      <label><b>आपका नाम</b></label>
+      <input id="customerName" required placeholder="पूरा नाम लिखें">
+
+      <label><b>मोबाइल नंबर</b></label>
+      <input id="customerPhone" required inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10 अंकों का मोबाइल नंबर">
+
+      <label><b>सेवा चुनें</b></label>
+      <select id="customerService" required></select>
+
+      <label><b>अपनी जरूरत बताएं (Optional)</b></label>
+      <textarea id="customerMessage" rows="3" placeholder="फॉर्म का नाम, एडिटिंग निर्देश या कोई अन्य जानकारी लिखें"></textarea>
+
+      <button type="submit" style="width:100%;font-size:17px">Enquiry सबमिट करें (Save & WhatsApp)</button>
+    </form>
+    <p id="formMessage" role="status" style="font-weight:bold;color:green;text-align:center"></p>
+  </section>
+
+  <section id="admin" class="card">
+    <h2>Admin Panel (दुकानदार के लिए)</h2>
+    <div id="loginBox">
+      <p class="small">डेमो पासवर्ड: guddu123</p>
+      <label>Admin Password</label>
+      <input id="adminPassword" type="password" placeholder="पासवर्ड डालें">
+      <button onclick="login()">Login</button>
+      <p id="loginMessage" style="color:red"></p>
+    </div>
+
+    <div id="adminPanel" class="hidden">
+      <h3>QR Code सेटिंग्स (Future Lock System)</h3>
+      <div style="background:#f8f9fa;padding:15px;border-radius:6px;margin-bottom:20px;border:1px dashed #6f42c1">
+         <label><b>अपनी QR Code इमेज का लिंक डालें:</b></label>
+         <input id="qrUrlInput" placeholder="जैसे: https://yourwebsite.com" style="margin-bottom:8px">
+         <button onclick="saveQRUrl()" style="background:#6f42c1;padding:8px 12px">QR लिंक अपडेट करें</button>
+         <p id="qrSettingsMessage" style="color:green;margin:5px 0 0;font-size:14px"></p>
+      </div>
+
+      <h3>प्राप्त इन्क्वायरी सूची</h3>
+      <div style="margin-bottom:15px;display:flex;gap:10px">
+         <button onclick="exportData()">JSON डाउनलोड करें</button>
+         <button onclick="logout()" style="background:#dc3545">Logout</button>
+      </div>
+      <div id="enquiryList"></div>
+      <button onclick="clearEnquiries()" style="background:#6c757d;margin-top:15px">सभी Enquiries हटाएं</button>
+    </div>
+  </section>
+</main>
+
+<div id="qrModal" class="modal hidden">
+  <div class="modal-content">
+    <h3 style="margin-top:0;color:#6f42c1">Guddu Digital Hub - Pay QR</h3>
+    <p class="small">कृपया स्कैन करके पेमेंट करें और व्हाट्सएप पर स्क्रीनशॉट भेजें।</p>
+    <img id="displayQR" src="" alt="QR Code" class="qr-img">
+    <button onclick="closeQRModal()" style="background:#6c757d;width:100%">बंद करें</button>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Guddu Digital Hub | सर्वाधिकार सुरक्षित</p>
+  <p class="small" style="color:#a0aec0">डिजिटल सेवाओं के लिए आपका विश्वसनीय केंद्र</p>
+</footer>
+
+<script>
+const MY_WHATSAPP_NUMBER = "919999999999"; 
+const DEFAULT_QR_URL = "https://qrserver.com";
+
+const services = [
+  "Online Form (सरकारी/प्राइवेट नौकरी)",
+  "Join Photo Editor (दो या अधिक फोटो जोड़ना)",
+  "A4 Document Edit (दस्तावेज सुधार एवं संपादन)",
+  "ID Card Edit (आधार/पैन/ड्राइविंग लाइसेंस सुधार)",
+  "Document Printing & Lamination",
+  "Professional Resume / CV",
+  "PDF Services (Merge, Convert)",
+  "अन्य डिजिटल सेवा"
+];
+
+const serviceList = document.getElementById("serviceList");
+const customerService = document.getElementById("customerService");
+
+services.forEach(function(service) {
+  const card = document.createElement("div");
+  card.className = "card";
+  const heading = document.createElement("h3");
+  heading.style.color = "#174b91"; heading.style.marginTop = "0";
+  heading.textContent = service;
+  const button = document.createElement("button");
+  button.textContent = "इन्क्वायरी करें"; button.style.width = "100%";
+  button.onclick = function() {
+    customerService.value = service;
+    document.getElementById("enquiry").scrollIntoView({behavior: 'smooth'});
+  };
+  card.append(heading, button);
+  serviceList.appendChild(card);
